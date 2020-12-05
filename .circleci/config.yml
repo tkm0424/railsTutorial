@@ -47,6 +47,9 @@ jobs:
       - run:
           name: Rspec
           command: bundle exec rspec
+      - run:
+          name: update npm
+          command: 'sudo npm install -g npm@latest'
 
   deploy:
     executor: heroku/default
