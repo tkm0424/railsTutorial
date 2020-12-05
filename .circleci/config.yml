@@ -18,12 +18,12 @@ commands:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-node-browsers
+      - image: circleci/ruby:2.6.3-node
     steps:
       - setup
   test:
     docker:
-      - image: circleci/ruby:2.6.3-node-browsers
+      - image: circleci/ruby:2.6.3-node
       - image: circleci/postgres:11.6-alpine
         environment:
           POSTGRES_USER: postgres
@@ -49,9 +49,7 @@ jobs:
           command: bundle exec rspec
       - run:
           name: "Node.js と npm の更新"
-          command: |
-            curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
-            curl https://www.npmjs.com/install.sh | sudo bash
+          command: apk add --no-cache nodejs
       - run:
           name: 現行バージョンのノードのチェック
           command: node -v
