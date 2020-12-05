@@ -11,8 +11,6 @@ ENV PATH /app/bin:$BUNDLE_BIN:$PATH
 
 WORKDIR $ROOT
 
-RUN apk update
-
 RUN apk update && \
     apk upgrade && \
     apk add --no-cache \
@@ -46,3 +44,6 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["sh", "/usr/bin/entrypoint.sh"]
 EXPOSE 3000
+
+# Start the main process.
+# CMD ["rails", "server", "-b", "0.0.0.0"]
