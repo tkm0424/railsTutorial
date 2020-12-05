@@ -18,13 +18,13 @@ commands:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-node
+      - image: circleci/ruby:2.6.3-jessie-node
     steps:
       - setup
   test:
     docker:
-      - image: circleci/ruby:2.6.3-node
-      - image: circleci/postgres:11.6-alpine
+      - image: circleci/ruby:2.6.3-jessie-node
+      - image: circleci/postgres:11.6-jessie-alpine
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: myapp_test
