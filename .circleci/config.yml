@@ -18,12 +18,12 @@ commands:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-node
+      - image: circleci/ruby:2.6.6-buster-node-browsers
     steps:
       - setup
   test:
     docker:
-      - image: circleci/ruby:2.6.3-node
+      - image: circleci/ruby:2.6.6-buster-node-browsers
       - image: circleci/postgres:11.6-alpine
         environment:
           POSTGRES_USER: postgres
