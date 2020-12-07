@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-alpine
+FROM ruby:2.6.6-alpine
 
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
