@@ -10,6 +10,7 @@ ENV PATH /app/bin:$BUNDLE_BIN:$PATH
 
 
 WORKDIR $ROOT
+RUN apk update
 
 RUN apk update && \
     apk upgrade && \
