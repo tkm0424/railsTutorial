@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Tests", type: :request do
-  describe "GET /tests" do
-    it "works! (now write some real specs)" do
-      get tests_path
-      expect(response).to have_http_status(200)
+  describe "GET /" do
+    it "Bye, world!が表示されること" do
+      get root_path
+      expect(response.body).to include "Bye, world!"
     end
   end
 end
