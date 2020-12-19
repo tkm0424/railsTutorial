@@ -39,6 +39,18 @@ jobs:
     steps:
       - setup
       - run:
+          name: bundle のｾｯﾄｱｯﾌﾟ
+          command: |
+            sudo gem update --system
+            sudo gem uninstall bundler
+            sudo rm /usr/local/bin/bundle
+            #sudo rm /usr/local/bin/bundler
+            sudo gem install bundler
+      - run:
+          name: install bundle
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
