@@ -30,7 +30,6 @@ jobs:
           POSTGRES_DB: myapp_test
           POSTGRES_PASSWORD: ""
     environment:
-      BUNDLER_VERSION: 2.0.1
       BUNDLE_JOBS: "4"
       BUNDLE_RETRY: "3"
       PGHOST: 127.0.0.1
@@ -39,11 +38,6 @@ jobs:
       RAILS_ENV: test
     steps:
       - setup
-
-      - run:
-          name: install bundle
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
