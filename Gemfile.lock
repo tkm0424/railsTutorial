@@ -85,7 +85,7 @@ GEM
       railties (>= 5.0.0)
     faker (2.15.1)
       i18n (>= 1.6, < 2)
-    ffi (1.13.1)
+    ffi (1.14.1)
     forgery (0.3.12)
       nokogiri (~> 1.4)
     forgery_ja (0.2.2)
@@ -240,7 +240,7 @@ GEM
     turbolinks (5.2.0)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.8)
+    tzinfo (1.2.9)
       thread_safe (~> 0.1)
     web-console (4.0.1)
       actionview (>= 6.0.0)
@@ -276,10 +276,11 @@ DEPENDENCIES
   guard-rspec
   jbuilder (= 2.9.1)
   listen (= 3.1.5)
+  minitest (= 5.11.3)
   pg (= 1.1.4)
   puma (= 4.3.6)
   rails (= 6.0.3)
-  rails-controller-testing
+  rails-controller-testing (= 1.0.4)
   rspec-rails
   sass-rails (= 5.1.0)
   selenium-webdriver (= 3.142.4)
@@ -292,4 +293,4 @@ DEPENDENCIES
   webpacker (= 4.0.7)
 
 BUNDLED WITH
-   1.17.2
+   2.0.2

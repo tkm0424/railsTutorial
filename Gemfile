@@ -13,7 +13,7 @@ gem 'bootsnap',   '1.4.5', require: false
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
 
-  # Test enviroment: Rspec
+    # Test enviroment: Rspec
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard'
@@ -21,7 +21,7 @@ group :development, :test do
 
   # Test enviroment: Fake date generator
   gem 'factory_bot_rails'
-	gem 'faker'
+  gem 'faker'
   gem 'forgery_ja'
 end
 
@@ -36,7 +36,8 @@ group :test do
   gem 'capybara',                 '3.28.0'
   gem 'selenium-webdriver',       '3.142.4'
   gem 'webdrivers',               '4.1.2'
-  gem 'rails-controller-testing'
+  gem 'rails-controller-testing', '1.0.4'
+  gem 'minitest',                 '5.11.3'
 end
 
 group :production do

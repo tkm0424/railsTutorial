@@ -30,6 +30,7 @@ jobs:
           POSTGRES_DB: myapp_test
           POSTGRES_PASSWORD: ""
     environment:
+      BUNDLER_VERSION: 2.0.1
       BUNDLE_JOBS: "4"
       BUNDLE_RETRY: "3"
       PGHOST: 127.0.0.1
@@ -39,6 +40,18 @@ jobs:
     steps:
       - setup
       - run:
+          name: setup bundler
+          command: |
+            gem update --system
+            gem uninstall bundler
+            rm /usr/local/bin/bundle
+            rm /usr/local/bin/bundler
+            gem install bundler
+      - run:
+          name: install bundle
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
@@ -47,17 +60,22 @@ jobs:
       - run:
           name: Rspec
           command: bundle exec rspec
-
+          
   deploy:
-    executor: heroku/default
+    machine:
+      image: circleci/classic:edge
     steps:
       - checkout
-      - heroku/install
-      - heroku/deploy-via-git:
-          maintenance-mode: true
       - run:
-          name: DB migrate
-          command: heroku run rails db:migrate --app $HEROKU_APP_NAME
+          name: heroku maintenance on
+          command: heroku maintenance:on --app ${HEROKU_APP_NAME}
+      - run:
+          name: heroku deploy
+          command: |
+            git push https://heroku:$HEROKU_APP_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - run:
+          name: heroku maintenance off
+          command: heroku maintenance:off --app ${HEROKU_APP_NAME}
 
 workflows:
   version: 2

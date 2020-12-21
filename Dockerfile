@@ -33,6 +33,8 @@ RUN apk update && \
 COPY Gemfile $ROOT
 COPY Gemfile.lock $ROOT
 
+RUN gem install bundler:2.0.2
+
 RUN bundle install -j4
 #　不要ファイル削除
 RUN rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/* && \
