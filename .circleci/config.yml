@@ -59,7 +59,7 @@ jobs:
           command: bundle exec rails db:schema:load --trace
       - run:
           name: minitest
-          command: rails test
+          command: bundle exec rails test
           
   deploy:
     machine:
