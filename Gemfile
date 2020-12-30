@@ -3,12 +3,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails',      '6.0.3'
 gem 'puma',       '4.3.6'
+gem 'bootstrap-sass', '3.4.1'
 gem 'pg',         '1.1.4'
 gem 'sass-rails', '5.1.0'
 gem 'webpacker',  '4.0.7'
 gem 'turbolinks', '5.2.0'
 gem 'jbuilder',   '2.9.1'
 gem 'bootsnap',   '1.4.5', require: false
+gem 'rails-controller-testing', '1.0.4'
+    #なぜかtest環境内に記述するtp失敗するのでここに記述する
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
@@ -36,7 +39,6 @@ group :test do
   gem 'capybara',                 '3.28.0'
   gem 'selenium-webdriver',       '3.142.4'
   gem 'webdrivers',               '4.1.2'
-  gem 'rails-controller-testing', '1.0.4'
   gem 'minitest',                 '5.11.3'
   gem 'minitest-reporters',       '1.3.8'
   gem 'guard',                    '2.16.2'
