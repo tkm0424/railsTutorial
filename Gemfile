@@ -12,6 +12,7 @@ gem 'jbuilder',   '2.9.1'
 gem 'bootsnap',   '1.4.5', require: false
 gem 'rails-controller-testing', '1.0.4'
     #なぜかtest環境内に記述するtp失敗するのでここに記述する
+gem 'bcrypt',     '3.1.13'
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
