@@ -1,15 +1,94 @@
 version: 2.1
+
 orbs:
-  ruby: circleci/ruby@0.1.2 
+  ruby: circleci/ruby@1.0
+  node: circleci/node@2
+  heroku: circleci/heroku@1.1.0
+
+# setupでまとめる
+commands:
+  setup:
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
 
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.3-stretch-node
-    executor: ruby/default
+      - image: circleci/ruby:2.6.6-buster-node-browsers
+    steps:
+      - setup
+  test:
+    docker:
+      - image: circleci/ruby:2.6.6-buster-node-browsers
+      - image: circleci/postgres:11.6-alpine
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: myapp_test
+          POSTGRES_PASSWORD: ""
+    environment:
+      BUNDLER_VERSION: 2.0.1
+      BUNDLE_JOBS: "4"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      PGPASSWORD: ""
+      RAILS_ENV: test
+    steps:
+      - setup
+      - run:
+          name: setup bundler
+          command: |
+            gem update --system
+            gem uninstall bundler
+            rm /usr/local/bin/bundle
+            rm /usr/local/bin/bundler
+            gem install bundler
+      - run:
+          name: install bundle
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - run:
+          name: minitest
+          command: bundle exec rails test
+          
+  deploy:
+    machine:
+      image: circleci/classic:edge
     steps:
       - checkout
       - run:
-          name: Which bundler?
-          command: bundle -v
-      - ruby/bundle-install
+          name: heroku maintenance on
+          command: heroku maintenance:on --app ${HEROKU_APP_NAME}
+      - run:
+          name: heroku deploy
+          command: |
+            git push https://heroku:$HEROKU_APP_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - run:
+          name: heroku maintenance off
+          command: heroku maintenance:off --app ${HEROKU_APP_NAME}
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master

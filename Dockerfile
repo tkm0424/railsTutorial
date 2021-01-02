@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-alpine
+FROM ruby:2.6.6-alpine
 
 ENV LANG=ja_JP.UTF-8
 ENV TZ=Asia/Tokyo
@@ -10,6 +10,7 @@ ENV PATH /app/bin:$BUNDLE_BIN:$PATH
 
 
 WORKDIR $ROOT
+RUN apk update
 
 RUN apk update && \
     apk upgrade && \
@@ -32,6 +33,8 @@ RUN apk update && \
 COPY Gemfile $ROOT
 COPY Gemfile.lock $ROOT
 
+RUN gem install bundler:2.0.2
+
 RUN bundle install -j4
 #　不要ファイル削除
 RUN rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/* && \
@@ -44,3 +47,6 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["sh", "/usr/bin/entrypoint.sh"]
 EXPOSE 3000
+
+# Start the main process.
+# CMD ["rails", "server", "-b", "0.0.0.0"]
