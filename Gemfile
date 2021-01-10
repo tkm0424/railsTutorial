@@ -13,6 +13,8 @@ gem 'bootsnap',   '1.4.5', require: false
 gem 'rails-controller-testing', '1.0.4'
     #なぜかtest環境内に記述するtp失敗するのでここに記述する
 gem 'bcrypt',     '3.1.13'
+gem 'will_paginate',           '3.1.8'
+gem 'bootstrap-will_paginate', '1.0.0'
 
 group :development, :test do
   gem 'byebug',  '11.0.1', platforms: [:mri, :mingw, :x64_mingw]
