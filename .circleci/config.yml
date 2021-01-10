@@ -48,6 +48,12 @@ jobs:
             rm /usr/local/bin/bundler
             gem install bundler
       - run:
+          name: yarn Install
+          command: yarn install
+      - run:
+          name: webpack install  
+          command: bundle exec bin/webpack
+      - run:
           name: install bundle
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
