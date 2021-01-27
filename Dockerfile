@@ -10,7 +10,6 @@ ENV PATH /app/bin:$BUNDLE_BIN:$PATH
 
 
 WORKDIR $ROOT
-RUN apk update
 
 RUN apk update && \
     apk upgrade && \
@@ -22,6 +21,7 @@ RUN apk update && \
         linux-headers \
         make \
         nodejs \
+        imagemagick \
         postgresql \
         postgresql-dev \
         tzdata \
@@ -36,7 +36,7 @@ COPY Gemfile.lock $ROOT
 RUN gem install bundler:2.0.2
 
 RUN bundle install -j4
-#　不要ファイル削除
+#不要ファイル削除
 RUN rm -rf /usr/local/bundle/cache/* /usr/local/share/.cache/* /var/cache/* /tmp/* && \
 apk del build-packs
 
