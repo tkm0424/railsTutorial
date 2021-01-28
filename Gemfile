@@ -14,8 +14,7 @@ gem 'webpacker',  '4.0.7'
 gem 'turbolinks', '5.2.0'
 gem 'jbuilder',   '2.9.1'
 gem 'bootsnap',   '1.4.5', require: false
-gem 'rails-controller-testing', '1.0.4'
-    #なぜかtest環境内に記述するtp失敗するのでここに記述する
+    #なぜかtest環境内に記述すると失敗するのでここに記述する
 gem 'bcrypt',     '3.1.13'
 gem 'will_paginate',           '3.1.8'
 gem 'bootstrap-will_paginate', '1.0.0'
@@ -43,6 +42,7 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing', '1.0.4'
   gem 'capybara',                 '3.28.0'
   gem 'selenium-webdriver',       '3.142.4'
   gem 'webdrivers',               '4.1.2'
